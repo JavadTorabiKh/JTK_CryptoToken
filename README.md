@@ -1,7 +1,8 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository. -->
+This is a good resource for how to transfer cryptocurrency through a smart contract with the Solidity language.
+In this contract, there are most types of functions that can be defined in Solidity, and the way to communicate with each of them is given using the popular Python language.
 
 ## configuration
 
