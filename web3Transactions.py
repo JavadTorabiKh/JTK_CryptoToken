@@ -3,12 +3,14 @@ from web3.contract import Contract
 from web3.middleware import geth_poa_middleware
 from eth_account import Account
 
+from abi import contractABI
+from config import PROVIDERINFURA
 
-providerUrl = 'https://sepolia.infura.io/v3/08bc373c28134da2893b83f543fa3ad3'
-web3 = Web3(Web3.HTTPProvider(providerUrl))
+
+web3 = Web3(Web3.HTTPProvider(PROVIDERINFURA))
 web3.middleware_onion.inject(geth_poa_middleware, layer=0)
 
-print(web3.is_connected())
+print("connection : ", web3.is_connected())
 
 
 contract_address = '0xee577210aFA5ECF45B74D65b500324A71ddd6E83'
