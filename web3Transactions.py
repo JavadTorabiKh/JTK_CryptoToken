@@ -13,10 +13,8 @@ web3.middleware_onion.inject(geth_poa_middleware, layer=0)
 print("connection : ", web3.is_connected())
 
 
-contract_address = '0xee577210aFA5ECF45B74D65b500324A71ddd6E83'
 contract = web3.eth.contract(address=contract_address, abi=contractABI)
-wallet_address = '0x99baFA590a24755f94F5815df06102C2450AcD3D'
-private_key = ''
+
 
 # -----------------------------------------------------------------------------------
 
