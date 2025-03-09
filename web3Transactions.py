@@ -12,15 +12,16 @@ web3.middleware_onion.inject(geth_poa_middleware, layer=0)
 
 print("connection : ", web3.is_connected())
 
+# contract object
 contract = web3.eth.contract(address=CONTRACT, abi=contractABI)
 
 
 # -----------------------------------------------------------------------------------
 
 # VIEW FUNCTIONS
-# index = "0x99baFA590a24755f94F5815df06102C2450AcD3D"
-# result = contract.functions.getBalance(index).call()
-# print(result)
+index = "0x99baFA590a24755f94F5815df06102C2450AcD3D"
+result = contract.functions.getBalance(index).call()
+print(result)
 
 # -----------------------------------------------------------------------------------
 
