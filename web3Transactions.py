@@ -4,7 +4,7 @@ from web3.middleware import geth_poa_middleware
 from eth_account import Account
 
 from abi import contractABI
-from config import PROVIDERINFURA
+from config import PROVIDERINFURA, CONTRACT, WALLET, PRIVATEKEY
 
 
 web3 = Web3(Web3.HTTPProvider(PROVIDERINFURA))
@@ -12,8 +12,7 @@ web3.middleware_onion.inject(geth_poa_middleware, layer=0)
 
 print("connection : ", web3.is_connected())
 
-
-contract = web3.eth.contract(address=contract_address, abi=contractABI)
+contract = web3.eth.contract(address=CONTRACT, abi=contractABI)
 
 
 # -----------------------------------------------------------------------------------
