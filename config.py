@@ -1,4 +1,4 @@
-
+# config for app
 
 PROVIDERINFURA = 'https://sepolia.infura.io/v3/08bc373c28134da2893b83f543fa3ad3'
 CONTRACT = '0xee577210aFA5ECF45B74D65b500324A71ddd6E83'
