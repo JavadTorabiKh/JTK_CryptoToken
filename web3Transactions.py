@@ -25,20 +25,23 @@ print(result)
 
 # -----------------------------------------------------------------------------------
 
-# # transfer Token functions
-# function_address = contract.functions.transfer(100, '0x99baFA590a24755f94F5815df06102C2450AcD3D').address
+# transfer Token functions
+function_address = contract.functions.transfer(
+    100, '0x99baFA590a24755f94F5815df06102C2450AcD3D').address
 
-# transaction = {
-#     'to': contract_address,
-#     'data': contract.encodeABI(fn_name='transfer', args=[100, '0x99baFA590a24755f94F5815df06102C2450AcD3D']),
-#     'gas': 200000,
-#     'gasPrice': web3.to_wei('50', 'gwei'),
-#     'nonce': web3.eth.get_transaction_count(wallet_address),
-# }
+transaction = {
+    'to': CONTRACT,
+    'data': contract.encodeABI(fn_name='transfer', args=[100, '0x99baFA590a24755f94F5815df06102C2450AcD3D']),
+    'gas': 200000,
+    'gasPrice': web3.to_wei('50', 'gwei'),
+    'nonce': web3.eth.get_transaction_count(WALLET),
+}
 
-# signed_transaction = web3.eth.account.sign_transaction(transaction, private_key=private_key)
-# transaction_hash = web3.eth.send_raw_transaction(signed_transaction.rawTransaction)
-# print(f'Transaction sent: {transaction_hash.hex()}')
+signed_transaction = web3.eth.account.sign_transaction(
+    transaction, private_key=PRIVATEKEY)
+transaction_hash = web3.eth.send_raw_transaction(
+    signed_transaction.rawTransaction)
+print(f'Transaction sent: {transaction_hash.hex()}')
 
 # ------------------------------------------------------------------------------------
 
