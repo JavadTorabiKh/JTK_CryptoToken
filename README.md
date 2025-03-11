@@ -14,3 +14,14 @@ It includes:
 
 ---
 
+## ⚙️ Configuration
+
+Follow these steps to set up and deploy the contract:
+
+1. Open the **Solidity** file in [Remix IDE](https://remix.ethereum.org/).
+2. Deploy the contract.
+3. Extract the **ABI** and **contract address**.
+4. Insert the ABI and contract address into the Python file.
+
+---
+
