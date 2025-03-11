@@ -25,3 +25,12 @@ Follow these steps to set up and deploy the contract:
 
 ---
 
+## 🚀 Running the Project
+
+To interact with the deployed contract:
+
+1. Use the Python script to communicate with the smart contract.
+2. Perform transactions and function calls from your Python environment.
+
+---
+
