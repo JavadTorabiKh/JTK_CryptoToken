@@ -1,44 +1,48 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.0;
 
+contract MyToken {
+    string public name = "MyToken";
+    string public symbol = "MTK";
+    uint8 public decimals = 18;
+    uint256 public totalSupply;
 
-import "liberary/safeMath.sol";
-import "liberary/Ownable.sol";
+    mapping(address => uint256) public balanceOf;
+    mapping(address => mapping(address => uint256)) public allowance;
 
-contract MyContract is Ownable(msg.sender) {
-    using SafeMath for uint256;
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
 
-    mapping(address => uint256) private _balances;
-
-    function getBalance(address _addr) public view returns (uint256) {
-        return _balances[_addr];
+    constructor(uint256 _initialSupply) {
+        totalSupply = _initialSupply * (10 ** uint256(decimals));
+        balanceOf[msg.sender] = totalSupply;
+        emit Transfer(address(0), msg.sender, totalSupply);
     }
 
-    function getBalanceContract() public view returns (uint256) {
-        return address(this).balance;
+    function transfer(address _to, uint256 _value) public returns (bool success) {
+        require(balanceOf[msg.sender] >= _value, "Insufficient balance");
+        _transfer(msg.sender, _to, _value);
+        return true;
     }
 
-    function sendAmount() public payable {
-        _balances[msg.sender] = _balances[msg.sender].add(msg.value);
+    function _transfer(address _from, address _to, uint256 _value) internal {
+        require(_to != address(0), "Invalid address");
+        balanceOf[_from] -= _value;
+        balanceOf[_to] += _value;
+        emit Transfer(_from, _to, _value);
     }
 
-    function transfer(uint256 _amount, address payable _to) public {
-        require(_amount <= _balances[msg.sender]);
-        _balances[msg.sender] = _balances[msg.sender].sub(_amount);
-        _to.transfer(_amount);
+    function approve(address _spender, uint256 _value) public returns (bool success) {
+        allowance[msg.sender][_spender] = _value;
+        emit Approval(msg.sender, _spender, _value);
+        return true;
     }
 
-    function transferFrom(
-        address _from,
-        address payable _to,
-        uint256 _amount
-    ) public onlyOwner {
-        require(_amount <= _balances[_from]);
-        _balances[_from] = _balances[_from].sub(_amount);
-        _to.transfer(_amount);
-    }
-
-    function renounceOwnership() public virtual override onlyOwner {
-        revert("no no ...");
+    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
+        require(balanceOf[_from] >= _value, "Insufficient balance");
+        require(allowance[_from][msg.sender] >= _value, "Allowance exceeded");
+        allowance[_from][msg.sender] -= _value;
+        _transfer(_from, _to, _value);
+        return true;
     }
 }
