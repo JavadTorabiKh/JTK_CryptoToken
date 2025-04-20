@@ -1,4 +1,6 @@
 from web3 import Web3
+from abi import contractABI
+
 
 # Connect to Ethereum network using Infura
 infura_url = "https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID"
@@ -11,9 +13,7 @@ if not web3.isConnected():
 
 # Smart contract address and ABI
 contract_address = "0xYourContractAddress"  # Replace with your contract address
-abi = [
-    # Place your contract ABI here
-]
+abi = contractABI
 
 # Create a contract instance
 contract = web3.eth.contract(address=contract_address, abi=abi)
