@@ -2,24 +2,13 @@ contractABI = [
     {
         "inputs": [
             {
-                "internalType": "address",
-                "name": "owner",
-                                "type": "address"
+                "internalType": "uint256",
+                "name": "_initialSupply",
+                "type": "uint256"
             }
         ],
-        "name": "OwnableInvalidOwner",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "account",
-                                "type": "address"
-            }
-        ],
-        "name": "OwnableUnauthorizedAccount",
-        "type": "error"
+        "stateMutability": "nonpayable",
+        "type": "constructor"
     },
     {
         "anonymous": False,
@@ -27,96 +16,199 @@ contractABI = [
             {
                 "indexed": True,
                 "internalType": "address",
-                "name": "previousOwner",
-                                "type": "address"
+                "name": "from",
+                "type": "address"
             },
             {
                 "indexed": True,
                 "internalType": "address",
-                "name": "newOwner",
-                                "type": "address"
+                "name": "to",
+                "type": "address"
+            },
+            {
+                "indexed": False,
+                "internalType": "uint256",
+                "name": "value",
+                "type": "uint256"
             }
         ],
-        "name": "OwnershipTransferred",
+        "name": "Transfer",
+        "type": "event"
+    },
+    {
+        "anonymous": False,
+        "inputs": [
+            {
+                "indexed": True,
+                "internalType": "address",
+                "name": "owner",
+                "type": "address"
+            },
+            {
+                "indexed": True,
+                "internalType": "address",
+                "name": "spender",
+                "type": "address"
+            },
+            {
+                "indexed": False,
+                "internalType": "uint256",
+                "name": "value",
+                "type": "uint256"
+            }
+        ],
+        "name": "Approval",
         "type": "event"
     },
     {
         "inputs": [],
-        "name": "renounceOwnership",
-                "outputs": [],
-                "stateMutability": "nonpayable",
-                "type": "function"
+        "name": "decimals",
+        "outputs": [
+            {
+                "internalType": "uint8",
+                "name": "",
+                "type": "uint8"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
     },
     {
         "inputs": [],
-        "name": "sendAmount",
-                "outputs": [],
-                "stateMutability": "payable",
-                "type": "function"
+        "name": "name",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "symbol",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
     },
     {
         "inputs": [
             {
-                "internalType": "uint256",
-                "name": "_amount",
-                                "type": "uint256"
+                "internalType": "address",
+                "name": "_to",
+                "type": "address"
             },
             {
-                "internalType": "address payable",
-                "name": "_to",
-                                "type": "address"
+                "internalType": "uint256",
+                "name": "_value",
+                "type": "uint256"
             }
         ],
         "name": "transfer",
-        "outputs": [],
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
         "stateMutability": "nonpayable",
-                "type": "function"
+        "type": "function"
     },
     {
         "inputs": [
             {
                 "internalType": "address",
                 "name": "_from",
-                                "type": "address"
+                "type": "address"
             },
             {
-                "internalType": "address payable",
+                "internalType": "address",
                 "name": "_to",
-                                "type": "address"
+                "type": "address"
             },
             {
                 "internalType": "uint256",
-                "name": "_amount",
-                                "type": "uint256"
+                "name": "_value",
+                "type": "uint256"
             }
         ],
         "name": "transferFrom",
-        "outputs": [],
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
         "stateMutability": "nonpayable",
-                "type": "function"
+        "type": "function"
     },
     {
         "inputs": [
             {
                 "internalType": "address",
-                "name": "newOwner",
-                                "type": "address"
+                "name": "_spender",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_value",
+                "type": "uint256"
             }
         ],
-        "name": "transferOwnership",
-        "outputs": [],
+        "name": "approve",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
         "stateMutability": "nonpayable",
-                "type": "function"
+        "type": "function"
     },
     {
         "inputs": [
             {
                 "internalType": "address",
-                "name": "_addr",
-                                "type": "address"
+                "name": "account",
+                "type": "address"
             }
         ],
-        "name": "getBalance",
+        "name": "balanceOf",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_owner",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_spender",
+                "type": "address"
+            }
+        ],
+        "name": "allowance",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -129,25 +221,12 @@ contractABI = [
     },
     {
         "inputs": [],
-        "name": "getBalanceContract",
-                "outputs": [
+        "name": "totalSupply",
+        "outputs": [
             {
                 "internalType": "uint256",
                 "name": "",
                 "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "owner",
-                "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
             }
         ],
         "stateMutability": "view",
