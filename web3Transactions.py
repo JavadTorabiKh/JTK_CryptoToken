@@ -1,9 +1,8 @@
 from web3 import Web3
 from abi import contractABI
-
+from config import PROVIDERINFURA as infura_url
 
 # Connect to Ethereum network using Infura
-infura_url = "https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID"
 web3 = Web3(Web3.HTTPProvider(infura_url))
 
 # Check if the connection is successful
