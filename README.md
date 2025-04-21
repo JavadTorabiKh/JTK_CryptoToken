@@ -51,13 +51,11 @@ JTK is a custom ERC-20 token deployed on the Ethereum network, designed for lear
 
 ## 🔗 Contract Details
 
-📜 Contract Address: 0xYOUR_CONTRACT_ADDRESS
+    📜 Contract Address: 0xYOUR_CONTRACT_ADDRESS
 
-📊 Total Supply: 1,000,000 JTK
+    📊 Total Supply: 1,000,000 JTK
 
-🔢 Decimals: 9
-
-📄 Etherscan: View Contract
+    🔢 Decimals: 9
 
 ---
 
