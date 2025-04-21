@@ -75,7 +75,7 @@ JTK is a custom ERC-20 token deployed on the Ethereum network, designed for lear
 
 ## 🌟 Contributions welcome!
 
-Built with ❤️ by Javad Tababi | Powered by Ethereum & Web3.py
+Built with ❤️ by Javad Tarabi | Powered by Ethereum & Web3.py
 
 ---
 
