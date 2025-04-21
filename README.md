@@ -46,3 +46,41 @@ JTK is a custom ERC-20 token deployed on the Ethereum network, designed for lear
 
     check_balance("0xYOUR_WALLET_ADDRESS")
 ```
+
+---
+
+## 🔗 Contract Details
+
+📜 Contract Address: 0xYOUR_CONTRACT_ADDRESS
+📊 Total Supply: 1,000,000 JTK
+🔢 Decimals: 9
+📄 Etherscan: View Contract
+
+---
+
+## 📜 License
+
+    MIT License.
+
+---
+
+## 💬 Contact
+
+    👨💻 Javad Tarabi
+    📧 Email: javadtorabi462@gmail.com
+
+---
+
+## 🌟 Contributions welcome!
+
+Built with ❤️ by Javad Tababi | Powered by Ethereum & Web3.py
+
+### Notes:
+
+Security: Never hardcode private keys (use environment variables).
+
+Testnets: Use Sepolia for testing.
+
+Gas Optimization: Fetch dynamic gas_price with w3.eth.gas_price.
+
+Let me know if you'd like to add deployment steps or other technical details! 😊
