@@ -1,4 +1,4 @@
-# 🪙 JTK (Javad Tab Token) - Personal ERC-20 Token
+# 🪙 JTK (Javad Torabi Token) - Personal ERC-20 Token
 - ✨ Created by Javad Tarabi
 - 🔗 Standard: ERC-20 on Ethereum
 
