@@ -87,4 +87,4 @@ Testnets: Use Sepolia for testing.
 
 Gas Optimization: Fetch dynamic gas_price with w3.eth.gas_price.
 
-- Let me know if you'd like to add deployment steps or other technical details! 😊
+Let me know if you'd like to add deployment steps or other technical details! 😊
