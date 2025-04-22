@@ -5,10 +5,10 @@ from solcx import compile_standard, install_solc
 from config import PROVIDERINFURA, PRIVATEKEY, CHAIN_ID
 
 # Configuration
-CONTRACT_NAME = "MyToken"
-CONTRACT_FILE = "JTK.sol"
+CONTRACT_NAME = "JTK"
+CONTRACT_FILE = "JTK_Contract.sol"
 RPC_URL = PROVIDERINFURA  # Testnet
-GAS_LIMIT = 3000000
+GAS_LIMIT = 21000
 
 
 def compile_contract():
