@@ -2,13 +2,12 @@ import json
 import os
 from web3 import Web3
 from solcx import compile_standard, install_solc
+from config import PROVIDERINFURA, PRIVATEKEY, CHAIN_ID
 
 # Configuration
 CONTRACT_NAME = "MyToken"
 CONTRACT_FILE = "JTK.sol"
-RPC_URL = "https://sepolia.infura.io/v3/YOUR_INFURA_KEY"  # Testnet
-PRIVATE_KEY = "YOUR_PRIVATE_KEY"  # Never commit this!
-CHAIN_ID = 11155111  # Sepolia testnet
+RPC_URL = PROVIDERINFURA  # Testnet
 GAS_LIMIT = 3000000
 
 
@@ -36,9 +35,10 @@ def compile_contract():
 
 
 def deploy_contract(compiled_contract):
+
     print("🚀 Deploying contract...")
     w3 = Web3(Web3.HTTPProvider(RPC_URL))
-    account = w3.eth.account.from_key(PRIVATE_KEY)
+    account = w3.eth.account.from_key(PRIVATEKEY)
 
     # Get contract data
     contract_data = compiled_contract["contracts"][CONTRACT_FILE][CONTRACT_NAME]
@@ -57,7 +57,7 @@ def deploy_contract(compiled_contract):
     })
 
     # Sign and send transaction
-    signed_txn = w3.eth.account.sign_transaction(transaction, PRIVATE_KEY)
+    signed_txn = w3.eth.account.sign_transaction(transaction, PRIVATEKEY)
     tx_hash = w3.eth.send_raw_transaction(signed_txn.rawTransaction)
     tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
 
