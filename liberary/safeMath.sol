@@ -59,7 +59,7 @@ library SafeMath {
      *
      * - Subtraction cannot overflow.
      */
-     
+
     function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
         require(b <= a, errorMessage);
         uint256 c = a - b;
@@ -77,6 +77,7 @@ library SafeMath {
      *
      * - Multiplication cannot overflow.
      */
+     
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
         // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
         // benefit is lost if 'b' is also tested.
