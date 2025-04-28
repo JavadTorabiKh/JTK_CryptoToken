@@ -77,7 +77,7 @@ library SafeMath {
      *
      * - Multiplication cannot overflow.
      */
-     
+
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
         // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
         // benefit is lost if 'b' is also tested.
@@ -104,6 +104,7 @@ library SafeMath {
      *
      * - The divisor cannot be zero.
      */
+     
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         return div(a, b, "SafeMath: division by zero");
     }
