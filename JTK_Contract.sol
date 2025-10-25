@@ -1,118 +1,129 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
-/// @title MyToken - A basic ERC20 Token with burn functionality
-contract MyToken {
-    // Token name
-    string public name = "JavadToken";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-    // Token symbol
-    string public symbol = "JTK";
-
-    // Number of decimals (e.g., 9 means balances are stored as whole numbers * 10^9)
-    uint8 public decimals = 9;
-
-    // Total supply of tokens (in smallest units, i.e., multiplied by 10^decimals)
+/// @title JavadToken - Advanced ERC20 Token with burn, mint, and security features
+/// @author Javad Torabi
+contract JavadToken is ReentrancyGuard {
+    string public constant name = "JavadToken";
+    string public constant symbol = "JTK";
+    uint8 public constant decimals = 9;
+    
     uint256 public totalSupply;
-
-    // Mapping of account addresses to their balances
+    address public owner;
+    
     mapping(address => uint256) public balanceOf;
-
-    // Mapping of allowances: owner => (spender => amount)
     mapping(address => mapping(address => uint256)) public allowance;
+    mapping(address => bool) public isMinter;
 
-    // Event emitted on successful transfer
     event Transfer(address indexed from, address indexed to, uint256 value);
-
-    // Event emitted on approval of allowance
     event Approval(address indexed owner, address indexed spender, uint256 value);
-
-    // Event emitted when tokens are burned
     event Burn(address indexed burner, uint256 value);
+    event Mint(address indexed minter, address indexed to, uint256 value);
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
-    /// @notice Constructor sets the initial total supply and assigns it to the deployer
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only owner can call this");
+        _;
+    }
+
+    modifier onlyMinter() {
+        require(isMinter[msg.sender] || msg.sender == owner, "Not authorized to mint");
+        _;
+    }
+
     constructor() {
-        // Set total supply to 1,000,000 tokens (with decimals considered)
+        owner = msg.sender;
         totalSupply = 1_000_000 * (10 ** uint256(decimals));
-
-        // Assign all tokens to the deployer (contract creator)
         balanceOf[msg.sender] = totalSupply;
-
-        // Emit a transfer event from address(0) to indicate minting
+        isMinter[msg.sender] = true;
+        
         emit Transfer(address(0), msg.sender, totalSupply);
     }
 
-    /// @notice Transfer tokens from the caller to another address
-    /// @param _to The recipient address
-    /// @param _value The amount of tokens to transfer
-    /// @return success True if the transfer was successful
-    function transfer(address _to, uint256 _value) public returns (bool success) {
+    function transfer(address _to, uint256 _value) 
+        external 
+        nonReentrant 
+        returns (bool) 
+    {
+        require(_to != address(0), "Invalid recipient");
         require(balanceOf[msg.sender] >= _value, "Insufficient balance");
+        
         _transfer(msg.sender, _to, _value);
         return true;
     }
 
-    /// @notice Internal transfer function
-    /// @param _from The sender address
-    /// @param _to The recipient address
-    /// @param _value The amount of tokens to transfer
     function _transfer(address _from, address _to, uint256 _value) internal {
-        require(_to != address(0), "Invalid recipient address");
-
-        // Subtract from sender
         balanceOf[_from] -= _value;
-
-        // Add to recipient
         balanceOf[_to] += _value;
-
-        // Emit transfer event
         emit Transfer(_from, _to, _value);
     }
 
-    /// @notice Approve another address to spend tokens on behalf of the caller
-    /// @param _spender The address allowed to spend
-    /// @param _value The amount allowed
-    /// @return success True if approval was successful
-    function approve(address _spender, uint256 _value) public returns (bool success) {
+    function approve(address _spender, uint256 _value) 
+        external 
+        returns (bool) 
+    {
         allowance[msg.sender][_spender] = _value;
-
-        // Emit approval event
         emit Approval(msg.sender, _spender, _value);
         return true;
     }
 
-    /// @notice Transfer tokens from one address to another, using allowance
-    /// @param _from The address to send tokens from
-    /// @param _to The address to receive tokens
-    /// @param _value The amount of tokens to transfer
-    /// @return success True if the transfer was successful
-    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
+    function transferFrom(address _from, address _to, uint256 _value) 
+        external 
+        nonReentrant 
+        returns (bool) 
+    {
         require(balanceOf[_from] >= _value, "Insufficient balance");
         require(allowance[_from][msg.sender] >= _value, "Allowance exceeded");
 
-        // Deduct from allowance
         allowance[_from][msg.sender] -= _value;
-
-        // Perform the transfer
         _transfer(_from, _to, _value);
         return true;
     }
 
-    /// @notice Burn (destroy) tokens from sender's account
-    /// @param _value The amount of tokens to burn
-    /// @return success True if tokens were successfully burned
-    function burn(uint256 _value) public returns (bool success) {
-        require(balanceOf[msg.sender] >= _value, "Insufficient balance to burn");
-
-        // Subtract tokens from sender's balance
+    function burn(uint256 _value) 
+        external 
+        nonReentrant 
+        returns (bool) 
+    {
+        require(balanceOf[msg.sender] >= _value, "Insufficient balance");
+        
         balanceOf[msg.sender] -= _value;
-
-        // Decrease total supply
         totalSupply -= _value;
-
-        // Emit burn and transfer events
+        
         emit Burn(msg.sender, _value);
         emit Transfer(msg.sender, address(0), _value);
         return true;
+    }
+
+    function mint(address _to, uint256 _value) 
+        external 
+        onlyMinter 
+        nonReentrant 
+        returns (bool) 
+    {
+        require(_to != address(0), "Invalid recipient");
+        
+        balanceOf[_to] += _value;
+        totalSupply += _value;
+        
+        emit Mint(msg.sender, _to, _value);
+        emit Transfer(address(0), _to, _value);
+        return true;
+    }
+
+    function addMinter(address _minter) external onlyOwner {
+        isMinter[_minter] = true;
+    }
+
+    function removeMinter(address _minter) external onlyOwner {
+        isMinter[_minter] = false;
+    }
+
+    function transferOwnership(address _newOwner) external onlyOwner {
+        require(_newOwner != address(0), "Invalid new owner");
+        emit OwnershipTransferred(owner, _newOwner);
+        owner = _newOwner;
     }
 }
